@@ -1,0 +1,13 @@
+{
+  "name": "nodeserver",
+  "engine": "6.6.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.0.17"
+  }
+}
