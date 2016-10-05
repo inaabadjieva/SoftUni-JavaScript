@@ -6,20 +6,15 @@ function orbit(input){
 
 	let matrix = new Array(rows).fill(0).map(row => new Array(cols).fill(0))
     matrix[starR][starC] = 1
-    num = 2
    
-   	for(let row = starR; row < rows-2; row++){
-   		for(let col = starC; col < cols-1; col++){
-   			matrix[row][row+1] = num
-   			matrix[row+1][row+1] = num
-   			matrix[row+1][row] = num
+   	for(let row = 0; row < rows; row++){
+   		for(let col = 0; col < cols; col++){
+   			let diffCol = Math.abs(col-starC)
+			let difRow = Math.abs(row-starR)
+			let diff = Math.max(difRow, diffCol) 
+			matrix[row][col] = diff+1
    		}
-   		num++ 
-   		matrix[row+2][row] = num
-   		matrix[row][row+2] = num
-   	}
-    
-
+  	}
     console.log(matrix.map(row => row.join(' ')).join('\n'));
 }
 orbit(['4 4',
