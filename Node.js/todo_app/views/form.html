@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TODO App</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+</head>
+<body>
+	<div class="menu" id="myMenu">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/create">New TODO</a></li>
+			<li><a href="/">Contact</a></li>
+			<li><a href="/">About</a></li>
+			<li class="icon">
+			    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</div>
+	<h1>Add a new TODO:</h1>
+	<form class="myForm" action="form_submit" method="post">
+		<input type="text" name="title" placeholder="Title">
+		<input type="text" name="description" placeholder="Description">
+		<input type="submit" name="Submit">
+	</form>
+</body>
+</html>

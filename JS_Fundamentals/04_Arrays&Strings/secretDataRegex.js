@@ -1,26 +1,23 @@
-function secretDataRegex(input){
+function secretDataRegex(input) {
     let regexName = /\*[A-Z][A-Za-z]*(?=\s|$)/g
     let regexPhone = /\+[0-9-]{10}(?=\s|$)/g
     let regexId = /![a-zA-Z0-9]+(?=\s|\t|$)/g
-    let regexBase =/_[0-9A-Za-z]+(?=\s|$)/g
+    let regexBase = /_[0-9A-Za-z]+(?=\s|$)/g
 
-    for(let line of input){
-       let match = line.match(regexName) ||
-           line.match(regexPhone) ||
-           line.match(regexId) ||
-           line.match(regexBase) 
-        while(match != null) {
-           for (let m of match) {
-               line = line.replace(m, '|'.repeat(m.length))
-           }
-           match = line.match(regexName) ||
-           		line.match(regexPhone) ||
-           		line.match(regexId) ||
-           		line.match(regexBase) 
-        }
-        console.log(line)
+    for (let line of input) {
+        console.log(line
+            .replace(regexName, m => '|'.repeat(m.length))
+            .replace(regexPhone, m => '|'.repeat(m.length))
+            .replace(regexId, m => '|'.repeat(m.length))
+            .replace(regexBase, m => '|'.repeat(m.length))
+        )
     }
 }
+// (input) => input
+//     .forEach(line => console.log(line
+//         .replace(
+//             /(\*[A-Z][a-zA-Z]*)(?= |\t|$)|(\+[0-9-]{10})(?= |\t|$)|(![0-9a-zA-Z]+)(?= |\t|$)|(_[0-9a-zA-Z]+)(?= |\t|$)/g,
+//             (m) => '|'.repeat(m.length))));
 secretDataRegex(['Agent *Ivankov was +555-49-796 in the room when it all happened *Ivankov.',
 'The person in the room was heavily armed.',
 'Agent *Ivankov had to act quick in order.',
