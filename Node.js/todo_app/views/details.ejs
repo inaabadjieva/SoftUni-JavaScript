@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TODO App</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+	<div class="menu" id="myMenu">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/create">New TODO</a></li>
+			<li><a href="/all">List All</a></li>
+			<li><a href="/">About</a></li>
+			<li class="icon">
+			    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</div>
+	<form action="" method="post" class="editForm">
+		<h3><%= todo.title %> - <%= todo.description %> (<%= todo.state%>)</h3>
+		<button type="submit"><%= buttonText %></button>	
+	</form>
+	<form action="/details/<%= todo.id %>/comment" method="post">
+		<input type="text" name="comment" placeholder="Comment">
+		<input type="submit" name="submit">
+	</form>
+	<h2>Comments:</h2>
+	<ul><%- comments %></ul>
+</body>
+</html>

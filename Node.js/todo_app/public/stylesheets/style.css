@@ -32,3 +32,6 @@ div.menu li.icon {
     margin: 3px;
     padding: 3px;
 }
+.editForm h3, button {
+    display: inline-block;
+}
