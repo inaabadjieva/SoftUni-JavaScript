@@ -50,22 +50,6 @@ router.post('/create', function(req, res, next) {
 	}); 	
 });
 
-router.get('/form', function(req, res, next) {	
-  	res.render('test')
-});
-
-// /* POST form. */
-router.post('/form', function(req, res, next) {
-
-     req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
-    	
-        console.log("Uploading: " + filename);
-        let fstream = fs.createWriteStream('public/images/test5');
-        file.pipe(fstream);
-    });
-});
-
 /* GET all. */
 router.get('/all', function(req, res, next) {	
 	let todos = readJSONFile()
@@ -129,6 +113,7 @@ function changeBtn(state){
 		state = 'Pending'
 	return state
 }
+
 function readJSONFile() {
 	let data = JSON.parse(fs.readFileSync('data.json', 'utf8')) 	 
   	return data

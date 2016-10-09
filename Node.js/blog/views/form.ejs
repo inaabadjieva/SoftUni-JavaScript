@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog App</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+	<div class="menu" id="myMenu">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/create">New Article</a></li>
+			<li><a href="/all">List All</a></li>
+			<li class="icon">
+			    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</div>
+	<h1>Add a new article:</h1>
+	<form class="myForm" action="" method="post" enctype="multipart/form-data">
+		<input type="text" name="title" placeholder="Title" required>
+		<textarea name="body" rows="20" cols="50" placeholder="Text" required></textarea>
+		<input type="file" name="image">
+		<input type="submit" name="Submit">
+	</form>
+</body>
+</html>

@@ -25,12 +25,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(busboy());
 
-// busboy.extend(app, {
-//     upload: true,
-//     path: 'public/images',
-//     // allowedPath: /./
-// });
-
 app.use('/', routes);
 //app.use('/users', users);
 
