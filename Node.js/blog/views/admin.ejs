@@ -16,12 +16,7 @@
 			</li>
 		</ul>
 	</div>
-	<h1>Add a new article:</h1>
-	<form class="myForm" action="" method="post" enctype="multipart/form-data">
-		<input type="text" name="title" placeholder="Title" required>
-		<textarea name="body" rows="20" cols="50" placeholder="Text" required></textarea>
-		<input type="file" name="image">
-		<button type="submit">Submit</button>
-	</form>
+	<h2>All Posts:</h2>
+	<ol><%- listPosts %></ol>
 </body>
 </html>

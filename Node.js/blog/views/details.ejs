@@ -10,12 +10,13 @@
 			<li><a href="/">Home</a></li>
 			<li><a href="/create">New Article</a></li>
 			<li><a href="/all">List All</a></li>
+			<li><a href="/static">Admin</a></li>
 			<li class="icon">
 			    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
 			</li>
 		</ul>
 	</div>
-	<!-- <img src="<%= post.image %>" alt=""> -->
+	<img src="<%= post.image %>" alt="image" style="max-height: 300px; max-width: 300px;">
 	<form action="" method="post" class="editForm">
 		<h3><%= post.title %></h3>
 		<div><%= post.body %></div>

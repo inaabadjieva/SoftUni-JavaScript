@@ -35,3 +35,7 @@ div.menu li.icon {
 .editForm h3, button {
     display: inline-block;
 }
+.list {
+    list-style:none;
+    padding-left:0;
+}

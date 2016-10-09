@@ -1,12 +1,20 @@
 let express = require('express');
 let fs = require('fs');
 let dateFormat = require('dateformat');
+let path = require('path');
+let formidable = require('formidable');
 
-var router = express.Router();
+let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+	let posts = readJSONFile();
+	let listPosts = '';
+	let bestSix = posts.sort((a, b) => b.views - a.views).slice(0,6)
+	bestSix.forEach(function(post) {
+		listPosts += `<li><h2>${post.title}</h2><div>${post.body}</div></li>`;
+	}); 
+  res.render('index', {listPosts: listPosts});
 });
 
 /* GET form page. */
@@ -14,39 +22,47 @@ router.get('/create', function(req, res, next) {
   res.render('form');
 });
 
-/* POST form.  */
+/* POST form page. */
 router.post('/create', function(req, res, next) {
+	var form = new formidable.IncomingForm();
+	form.uploadDir = path.join(__dirname, '../public/images');
+
+	let title= '';
+	let body = '';
+	form.on('field', function(key, value) {
+		if(key == 'title') {
+			title = value
+		} else if(key == 'body') {
+			body = value
+		}
+	});
 	let filename = '';
-	req.pipe(req.busboy);
-	console.log(req.busboy)
-	req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-	  	req.body[key] = value;
+	form.on('file', function(field, file) {
+		filename = new Date().valueOf().toString() + '.jpeg';
+		fs.rename(file.path, path.join(form.uploadDir, filename));
+	  	filename = '/images/' +  filename;
 	});
 
-	 req.busboy.on('file', function (fieldname, file, name) {
-	  		filename = 'public/images/' + new Date().valueOf();
-	  		console.log(filename)
-	        let fstream = fs.createWriteStream(filename);
-	        file.pipe(fstream);
-    });
+	form.on('error', function(err) {
+	  console.log('An error has occured: \n' + err);
+	});
 
-    req.busboy.on('finish', function(field){
-	 //    if(!req.body.title || !req.body.description ) {
-		// 	return res.render('form', { message: 'Please fill out all fields.'});
-		// } else{
-	        let data = {
-		  		id: new Date().valueOf(),
-		  		title: req.body.title,
-		  		body: req.body.body,
-		  		image: filename,
-		  		state: 'posted',
-		  		views: 0, 
-		  		comments: []
-		  	};
-	  		addToJSONFile(data);
-	  		res.render('form');
-	  	//}
-	}); 	
+	form.on('end', function() {
+		let data = {
+		id: new Date().valueOf(),
+		title: title,
+		body: body,
+		image: filename,
+		state: 'posted',
+		views: 0, 
+		comments: []
+		};
+		console.log(data)
+		addToJSONFile(data);
+		res.render('form');
+	});
+
+	form.parse(req);
 });
 
 /* GET all posts.  */
@@ -62,7 +78,6 @@ router.get('/details/:id', function(req, res, next) {
 	let post = readJSONFile().find((post) => post.id == req.params.id);
 	let buttonText = changeBtn(post.state);
 	let comments = renderComments(post);
-	console.log(post);
 	res.render('details', { post : post, buttonText : buttonText, comments: comments});
 });
 
@@ -84,10 +99,17 @@ router.post('/details/:id/comment', function(req, res, next) {
 	res.render('details', { post : post, buttonText : buttonText, comments: comments});
 });
 
-// router.get('/static',function(req,res,next){
-// 	if(req.header.)
-
-// })
+/* Static Authentication. */
+router.get('/static',function(req, res, next){
+	if (!req.header.authorization || req.header.authorization != 'Admin') {
+ 		res.send(404)
+	} else {
+		let posts = readJSONFile();
+		let listPosts = '';
+		posts.forEach((post) => listPosts += `<li><h3>${post.title}:</h3>Total comments: ${post.comments.length}<br>Total views: ${post.views}</li>`);
+		res.render('admin', { listPosts : listPosts });
+	}
+});
 
 function readJSONFile() {
 	let data = JSON.parse(fs.readFileSync('data.json', 'utf8')) 	 ;
