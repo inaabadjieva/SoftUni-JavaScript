@@ -8,7 +8,7 @@ function townsToJSON(input){
 			Longitude: Number(lng)}
 		townArr.push(townObj)	
 	}
-	return JSON.stringify(townArr)
+	console.log(JSON.stringify(townArr))
 }
 townsToJSON(['| Town | Latitude | Longitude |',
 '| Sofia | 42.696552 | 23.32601 |',
