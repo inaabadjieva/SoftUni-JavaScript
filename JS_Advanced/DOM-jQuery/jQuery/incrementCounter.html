@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Increment Counter</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+            integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="wrapper">
+    </div>
+    <!-- <script src="incrementCounter.js"></script> -->
+    <script>
+        window.onload = function(){
+            increment("#wrapper");
+            function increment (selector) {
+
+                let textarea = $('<textarea>').addClass('counter').val('0').attr('disabled', true)
+                let incrementBtn = $('<button>').addClass('btn')    .attr('id', 'incrementBtn').html('Increment')
+                let addBtn = $('<button>').addClass('btn')    .attr('id', 'addBtn').html('Add')
+                let list = $('<ul>').addClass('results')
+
+                incrementBtn.on('click', function(event){
+                    let value = parseInt(textarea.val())
+                    textarea.val(++value)
+                })
+
+                addBtn.on('click', function(event){
+                    let value = textarea.val()
+                    let li = $('<li>').text(value)
+                    list.append(li)
+                })
+
+                $(selector).append(textarea).append(incrementBtn).append(addBtn).append(list)
+            }
+        }
+    </script>
+</body>
+</html>
