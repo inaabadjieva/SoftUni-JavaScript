@@ -1,14 +1,14 @@
 function domSearch(selector, casing) {
    let content = $('#root')
    let addControls = $('<div>').addClass('add-controls')
-								   			.append($('<label>Enter text: </label>')
-								   				.append($('<input>')))
-								   			.append($('<a>Add</a>').addClass('button').css('display', 'inline-block'))
+		.append($('<label>Enter text: </label>')
+			.append($('<input>')))
+		.append($('<a>Add</a>').addClass('button').css('display', 'inline-block'))
    	let searchControls = $('<div>').addClass('search-controls')
-   													.append($('<label>Search: </label>')
-										   				.append($('<input>')))
+		.append($('<label>Search: </label>')
+			.append($('<input>')))
 	let resultControls = $('<div>').addClass('result-controls')
-   													.append($('<ul>').addClass('items-list'))
+   		.append($('<ul>').addClass('items-list'))
 
  	content.append(addControls).append(searchControls).append(resultControls)
    	
@@ -40,7 +40,7 @@ function domSearch(selector, casing) {
 			searched = searched.toLowerCase()
 			$('.items-list li').each((index, item) => {
 				let str = item.textContent.slice(1).toLowerCase()
-		   		if(str.includes(searched)){
+		   		if(str.indexOf(searched) > -1){
 		   			$(item).removeAttr('style')
 		   		} else {
 		   			$(item).attr('style', 'display: none')
