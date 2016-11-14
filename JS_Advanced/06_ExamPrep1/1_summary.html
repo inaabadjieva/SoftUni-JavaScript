@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src='summary.js'></script>
+</head>
+
+<body>
+	<div class="holder">
+	    <div id="content">
+	        <p><strong>Important text. </strong>Not too important. <strong>Also useful info.</strong></p>
+	    </div>
+	    <input type="button" id="summarize" value="Generate Summary">
+	</div>
+	<script>
+		summary('#summarize')	
+	</script>
+</body>
+</html>

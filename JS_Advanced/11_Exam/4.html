@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cards</title>
+  <style>
+   div.card {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    width: 50px;
+    height: 80px;
+    background: #EEE;
+    border: 3px solid #DDD;
+    border-radius: 5px;
+    font-size: 18pt;
+    text-align: center;
+    line-height: 75px;
+   }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+  <div id="main"></div>
+  <script>
+    function cardDeckBuilder(selector) {
+        const suits = {
+            C: '\u2663',
+            D: '\u2666',
+            H: '\u2665',
+            S: '\u2660'
+        };
+        let main = $(selector);
+        let cards = [];
+        function addCard(face, suit) {
+            let card = $('<div>')
+                    .addClass('card')
+                    .html(`${face} ${suits[suit]}`)
+                    .on('click', reverseAll);
+            cards.push(card);
+            main.append(card);
+        }
+        function reverseAll() {
+            cards.reverse();
+            rePrint();
+        }
+        function rePrint() {
+            main.empty();
+            for (let card of cards) {
+                main.append($(card).on('click', reverseAll));
+            }
+        }
+        return {
+            addCard,
+        }
+    }
+  </script>
+  <script>
+  $(function() {
+    let builder = cardDeckBuilder("#main");
+    builder.addCard("10", "D");
+    builder.addCard("K", "S");
+    builder.addCard("Q", "H");
+    builder.addCard("4", "C");
+  });
+  </script>
+</body>
+
+</html>
