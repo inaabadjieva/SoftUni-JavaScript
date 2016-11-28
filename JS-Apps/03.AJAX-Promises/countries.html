@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Countries</title>
+  <style>
+   li.countryList {
+   	font-weight: bold;
+   	font-size: 24px;
+   	margin-bottom: 20px;
+     list-style-type: none;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+  <label>Country</label>
+  <input type="text" id="country" />
+  <button id="addCountry">Add Country</button>
+  <button id="loadCountries">View Countries</button>
+  <h1>All Countries</h1>
+  <ul id="countries">
+  </ul>
+  <script src="countries.js"></script>
+  <script>
+  attachEvents();
+  </script>
+</body>
+
+</html>
