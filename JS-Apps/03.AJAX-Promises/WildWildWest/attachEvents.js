@@ -11,12 +11,12 @@ function attachEvents() {
 	addBtn.on('click', addPlayer)
 
 	function loadPlayers() {
-		$('#players').empty()
 		$.get({
 				url: baseUrl,
 				headers: authHeaders
 			})
 			.then(function(res) {
+				$('#players').empty()
 				for (let player of res) {
 					$('#players')
 						.append($('<div>').addClass('player').attr('data-id', player._id)

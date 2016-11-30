@@ -330,7 +330,7 @@ function startApp() {
 	}
 
 	function readMore(ad) {
-		incrementViews(ad)
+		//incrementViews(ad)
 		$.ajax({
 			method: "GET",
 			url: baseUrl + "appdata/" + appKey + "/ads/" + ad._id,
@@ -338,33 +338,32 @@ function startApp() {
 			success: loadSingleAdSuccess,
 			error: handleAjaxError
 		});
-		$('#viewSingleAd').empty()
 		function loadSingleAdSuccess(ad) {
-			$('#viewSingleAd h1[name=title]').text(ad.title);
+			$('#viewSingleAd img').attr('src', ad.image);
+			$('#viewSingleAd h3[name=price]').text(ad.price + '$');
+			$('#viewSingleAd h3[name=title]').text(ad.title);
 			$('#viewSingleAd h3[name=description]').text(ad.description);
 			$('#viewSingleAd h3[name=datePublished]').text(ad.date);
-			$('#viewSingleAd h3[name=price]').text(ad.price);
 			$('#viewSingleAd h3[name=views]').text(ad.views);
-			$('#viewSingleAd img').attr('src', ad.image);
 			showView('viewSingleAd');
 		}
 	}
-	function incrementViews(ad){
-			let adData = {
-			title: ad.title,
-			publisher: ad.publisher,
-			description: ad.description,
-			date: ad.date,
-			price: ad.price,
-			image: ad.image,
-			views:  ad.views++
-		};
-		$.ajax({
-			method: "PUT",
-			url: baseUrl + "appdata/" + appKey + "/ads/" + ad._id,
-			headers: getUserAuthHeaders(),
-			data: adData,
-			error: handleAjaxError
-		});
-	}
+	// function incrementViews(ad){
+	// 		let adData = {
+	// 		title: ad.title,
+	// 		publisher: ad.publisher,
+	// 		description: ad.description,
+	// 		date: ad.date,
+	// 		price: ad.price,
+	// 		image: ad.image,
+	// 		views:  ad.views++
+	// 	};
+	// 	$.ajax({
+	// 		method: "PUT",
+	// 		url: baseUrl + "appdata/" + appKey + "/ads/" + ad._id,
+	// 		headers: getUserAuthHeaders(),
+	// 		data: adData,
+	// 		error: handleAjaxError
+	// 	});
+	//}
 }

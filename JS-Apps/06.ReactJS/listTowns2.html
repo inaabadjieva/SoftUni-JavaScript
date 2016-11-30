@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>List Town</title>
+   <script src="https://unpkg.com/react/dist/react.js"></script>
+   <script src="https://unpkg.com/react-dom/dist/react-dom.js"></script>
+   <script src="https://unpkg.com/babel-standalone"></script>
+</head>
+<body onload="listTowns('root')">
+ <div id="root"></div>
+</body >
+<script type="text/babel">
+    function listTowns(selector) {
+        class Form extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+            render() {
+                return (
+                        <form>
+                            <input type="text" onChange={this.props.handleChange }/>
+                            <input type="submit" onClick={this.props.handleSubmit} value="Submit" />
+                        </form>
+                )
+            }
+        }
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    value: '',
+                    list: []
+                };
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+            handleChange(event) {
+                this.setState({
+                    value: event.target.value
+                })
+            }
+            handleSubmit(event) {
+                event.preventDefault();
+                let list = this.state.value.split(', ').map(x => <li key={x}>{x}</li>);
+
+                this.setState({ list : list});
+            }
+            render() {
+            console.log(this.state.list.length)
+                return (
+                        <div>
+                            <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
+                            <ul>{this.state.list}</ul>
+                        </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <App  />,
+            document.getElementById(selector)
+        );
+    }
+
+    listTowns('root')
+</script>
+</html>

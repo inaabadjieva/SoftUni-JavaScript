@@ -11,58 +11,42 @@
  <div id="root"></div>
 </body >
 <script type="text/babel">
- function listTowns(selector) {
-
+   function listTowns(selector) {
         let Form = React.createClass({
-             getInitialState: function() {
-                let towns = this.props.towns;
-                if(towns == undefined) towns = ''
-                 return { towns };
-             },
-             handleChange(event) {
-                 this.setState({towns: event.target.value});
-             },
-            
             render: function () {
-                return (
-                        <form>
-                            <input type="text" value={this.state.towns} onChange={this.handleChange}/>
-                            <input type="submit" value="Submit" />
-                        </form>
-                );
+                return <form onSubmit={this.props.listTowns}>
+                    <input type="text"/>
+                    <input type="submit" defaultValue="Submit"/>
+                </form>
             }
         });
- 
+        
         let App = React.createClass({
             getInitialState: function () {
-                let towns = [];
-                return {towns};
+                return {
+                    towns: []
+                }
             },
-            getTowns: function (towns) {
-                 console.log(towns)
-                if (towns.value.length > 0)
-                    this.setState({towns: towns.value.split(', ')});
-                else
-                    this.setState({towns: []});
+            onSubmitHandler: function (event) {
+                event.preventDefault();
+                this.setState({
+                    towns: event.target.children[0].value.split(', ')
+                });
             },
             render: function () {
-                let towns = this.state.towns
-                    .map(function (town, i) {
+                 let list = this.state.towns.map(function (town, i) {
                         return <li key={i}>{town}</li>
                     });
+                return <div>
+                    <Form listTowns={this.onSubmitHandler}/>
+                    <ul>{list}</ul>
+                </div>
+            }
+        });
 
-                 return (
-                     <div>
-                          <Form action={this.getTowns}/>
-                          <ul>{towns}</ul>
-                     </div>
-                 )
-             }
-         });
-
-        ReactDOM.render (
-                <App/>, 
-                 document.getElementById(selector)
+        ReactDOM.render(
+                <App />,
+            document.getElementById(selector)
         );
     }
 </script>
