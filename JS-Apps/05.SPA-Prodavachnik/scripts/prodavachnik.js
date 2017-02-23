@@ -7,7 +7,7 @@ function startApp() {
 		"Content-Type": "application/json"
 	};
 
-	//sessionStorage.clear();
+	sessionStorage.clear();
 	showHideMenuLinks();
 	showView('viewHome');
 

@@ -7,7 +7,7 @@ function startApp() {
 		"Content-Type": "application/json"
 	};
 
-	//sessionStorage.clear();
+	sessionStorage.clear();
 	showHideMenuLinks();
 	showView('viewHome');
 
@@ -71,8 +71,8 @@ function startApp() {
 	}
 
 	function showRegisterView() {
-		$('#formRegister').trigger('reset')
 		showView('viewRegister')
+		$('#formRegister').trigger('reset')
 	}
 
 	function showCreateBookView() {
@@ -193,7 +193,7 @@ function startApp() {
 						.append('<th>Title</th><th>Author</th><th>Description</th><th>Actions</th>'));
 				for (let book of books) {
 					let links = [];
-					if (book._acl.creator == sessionStorage['userId']) {
+					if (book._acl.creator === sessionStorage['userId']) {
 						let deleteLink = $('<a href="#">[Delete]</a>')
 							.click(function() { deleteBook(book) });
 						let editLink = $('<a href="#">[Edit]</a>')
@@ -252,10 +252,8 @@ function startApp() {
 		function loadBookForEditSuccess(book) {
 			$('#formEditBook input[name=id]').val(book._id);
 			$('#formEditBook input[name=title]').val(book.title);
-			$('#formEditBook input[name=author]')
-				.val(book.author);
-			$('#formEditBook textarea[name=descr]')
-				.val(book.description);
+			$('#formEditBook input[name=author]').val(book.author);
+			$('#formEditBook textarea[name=descr]').val(book.description);
 			showView('viewEditBook');
 		}
 	}
